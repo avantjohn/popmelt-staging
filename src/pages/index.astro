@@ -1,0 +1,155 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
+---
+
+<script>
+    import { gsap } from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+    gsap.registerPlugin(ScrollTrigger);
+
+	const textElement = document.querySelectorAll('.hero-text');
+
+	gsap.fromTo(
+		textElement,
+		{ opacity: 0 },
+		{
+			opacity: 1,
+			duration: 1,
+		}
+	);
+
+	// Add circle animation
+	const buttons = document.querySelectorAll('.hero-button a');
+	
+	buttons.forEach(button => {
+		const circle = button.querySelector('circle');
+		
+		// Set initial state
+		gsap.set(circle, {
+			strokeDasharray: 302, // Approximate circumference of the circle (2 * π * r)
+			strokeDashoffset: 302
+		});
+
+		// Create hover animation
+		button.addEventListener('mouseenter', () => {
+			gsap.to(circle, {
+				strokeDashoffset: 0,
+				duration: 0.6,
+				ease: "power2.out"
+			});
+		});
+
+		button.addEventListener('mouseleave', () => {
+			gsap.to(circle, {
+				strokeDashoffset: 302,
+				duration: 0.6,
+				ease: "power2.out"
+			});
+		});
+	});
+</script>
+
+<Layout>
+	<section class="hero">
+		<div class="hero-content">
+			<div class="hero-text">
+				<div class="hero-title">
+					<h1>Hello World</h1>
+				</div>
+				<div class="hero-description">
+					<p>This is a test</p>
+				</div>
+				<div class="hero-button">
+					<a href="/navi">
+						<div class="hero-button-text">Learn More</div>
+						<div class="hero-button-icon">
+							<svg width="100%" height="100%" viewBox="0 0 100 100">
+								<circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" stroke-width="3"/>
+							</svg>
+							<Icon name="general/arrow-right" />
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+</Layout>
+
+<style>
+	.hero {
+		background-color: #000;
+		color: #fff;
+		height: 100vh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.hero-content {
+		padding: 2rem;
+	}
+
+	.hero-text {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 4rem;
+	}
+
+	.hero-title {
+		font-size: 4rem;
+		font-weight: 700;
+		line-height: 0;
+	}
+
+	.hero-description {
+		font-size: 1.5rem;
+		line-height: 0;
+		margin-top: 1rem;
+	}
+
+	.hero-button a {
+		text-decoration: none;
+		color: #000;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		background-color: #fff;
+		padding: 0.5rem 1rem;
+		border-radius: 0.25rem;
+	}
+
+	.hero-button-text {
+		font-size: 1rem;
+		font-weight: 700;
+	}
+
+	.hero-button-icon {
+		width: 2rem;
+		height: 2rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 50%;
+		color: #fff;
+		position: relative;
+	}
+
+	.hero-button-icon svg {
+		color: #000;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	.hero-button-icon [data-icon] {
+		position: relative;
+		z-index: 1;
+	}
+
+	.hero-button-icon svg circle {
+		transform-origin: center;
+		transform: rotate(-90deg);
+	}
+</style>
