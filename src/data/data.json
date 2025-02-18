@@ -1,8 +1,87 @@
 {
-  "Index": 
-  101,
-  "Title": 
-  "Webflow is over.",
-  "URL": 
-  "www.article.com"
-}
+    "nodes": [
+      {
+        "parameters": {
+          "path": "submit-link",
+          "httpMethod": "POST",
+          "responseMode": "lastNode"
+        },
+        "name": "Webhook Trigger",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 1,
+        "position": [
+          200,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "values": {
+            "string": [
+              {
+                "name": "screenshot",
+                "value": "={{\"https://api.screenshotmachine.com/?key=YOUR_API_KEY&url=\" + $json[\"url\"] + \"&format=png\"}}"
+              },
+              {
+                "name": "savedAt",
+                "value": "={{$now}}"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "name": "Set Additional Data",
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 1,
+        "position": [
+          400,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "resource": "completion",
+          "operation": "create",
+          "model": "text-davinci-003",
+          "prompt": "Generate a JSON object for a website inspiration using the provided details. The input details are:\n\nURL: {{$json[\"url\"]}}\nScreenshot: {{$json[\"screenshot\"]}}\nSavedAt: {{$json[\"savedAt\"]}}\n\nThe JSON object should include the following fields: title, url, description, screenshot, tags (as an array), category, notes, savedAt. Use creative language to generate the values. The JSON should be formatted exactly as follows:\n\n{\n  \"title\": \"Example Corporate Website\",\n  \"url\": \"https://www.example.com\",\n  \"description\": \"A modern corporate website with clean design, engaging motion, and intuitive navigation ideal for inspiring UI/UX improvements.\",\n  \"screenshot\": \"https://api.screenshotmachine.com/?key=YOUR_API_KEY&url=https://www.example.com&format=png\",\n  \"tags\": [\"modern\", \"corporate\", \"motion\", \"clean-design\"],\n  \"category\": \"Corporate Website\",\n  \"notes\": \"Great use of imagery and motion. Consider similar strategies for NBCUniversal Corporate Design System.\",\n  \"savedAt\": \"2025-02-05T12:34:56Z\"\n}\n\nOnly change the values appropriately based on the website provided.",
+          "temperature": 0.7,
+          "maxTokens": 300
+        },
+        "name": "OpenAI - Generate Details",
+        "type": "n8n-nodes-base.openai",
+        "typeVersion": 1,
+        "position": [
+          600,
+          300
+        ],
+        "credentials": {
+          "openaiApi": "YOUR_OPENAI_CREDENTIALS"
+        }
+      }
+    ],
+    "connections": {
+      "Webhook Trigger": {
+        "main": [
+          [
+            {
+              "node": "Set Additional Data",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Set Additional Data": {
+        "main": [
+          [
+            {
+              "node": "OpenAI - Generate Details",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    }
+  }
+  

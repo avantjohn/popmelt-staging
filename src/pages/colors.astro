@@ -1,0 +1,595 @@
+---
+// Import the CSS file for styling, not for rendering
+import '../styles/colors-global-new.css';
+
+const colorTypes = [ '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+const colorSteps = [100, 200, 300, 400, 500, 600, 700, 800, 900];
+const colorVariables = colorTypes.flatMap(type => 
+  colorSteps.map(step => `--u-color-core-${type}-${step}`)
+);
+
+// Initialize with just '01'
+const initialColorTypesTheme = ['01'];
+
+// Use initialColorTypesTheme instead
+const colorVariablesTheme = initialColorTypesTheme.flatMap(type => 
+  colorSteps.map(step => `--u-color-core-${type}-${step}`)
+);
+
+
+---
+
+<div class="controls">
+  <div class="control-group">
+    <div class="header">
+      <div class="preview-swatch" role="button" title="Click to copy color value"></div>
+      <h3>Edit Core Color</h3>
+    </div>
+    <div class="slider-group">
+      <label>Lightness: <span id="l-value">50</span>%</label>
+      <input type="range" id="l-slider" min="0" max="100" value="50" step=".01">
+    </div>
+    <div class="slider-group">
+      <label>Chroma: <span id="c-value">0.25</span></label>
+      <input type="range" id="c-slider" min="0" max="0.37" value="0.25" step="0.001">
+    </div>
+    <div class="slider-group">
+      <label>Hue: <span id="h-value">300</span>&deg;</label>
+      <input type="range" id="h-slider" min="0" max="360" value="300" step=".01">
+    </div>
+  </div>
+
+  <div class="control-group">
+    <div class="header">
+      <h3>Shift Core Palette</h3>
+    </div>
+    <div class="slider-group">
+      <label>Tint Scale: <span id="tint-value">1.25</span></label>
+      <input type="range" id="tint-slider" min="1" max="2" value="1.25" step="0.001">
+    </div>
+    <div class="slider-group">
+      <label>Shade Scale: <span id="shade-value">1.25</span></label>
+      <input type="range" id="shade-slider" min="1" max="2" value="1.25" step="0.001">
+    </div>
+    <div class="slider-group">
+      <label>Chroma Shift: <span id="shift-value">1</span></label>
+      <input type="range" id="shift-slider" min="0" max="3" value="1" step="0.001">
+    </div>
+  </div>
+</div>
+
+<div class="palette-container">
+  <div class="palette theme-palette">
+    <h2>Theme Colors</h2>
+    <div class="colors" id="theme-colors">
+      {initialColorTypesTheme.map(type => (
+        <div class="color-row-container theme">
+          <button class="add-button" data-color-type={type} aria-label={`Default color type ${type}`}><span style="font-size: 0.6em">&#9733;</span></button>
+          <div class="color-row">
+            {colorSteps.map(step => (
+              <div class="color-item">
+                <div class="color-swatch" style={`background: var(--u-color-core-${type}-${step})`}></div>
+                <span class="color-name">--u-color-core-{type}-{step}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="palette core-palette">
+    <h2>Core Colors</h2>
+    <div class="colors">
+      {colorTypes.map(type => (
+        <div class="color-row-container">
+          <button class="add-button" data-color-type={type} aria-label={`Add color type ${type}`}>+</button>
+          <div class="color-row">
+            {colorSteps.map(step => (
+              <div class="color-item">
+                <div class="color-swatch" style={`background: var(--u-color-core-${type}-${step})`}></div>
+                <span class="color-name">--u-color-core-{type}-{step}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">Copied to clipboard!</div>
+
+<style>
+    body {
+        font-family: 'Inter', sans-serif;
+    }
+
+  .palette-container {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .palette {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.025);
+  }
+
+  .palette h2 {
+    margin: 0 0 1.5rem 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1f2937;
+  }
+
+  .colors {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+  }
+
+  .color-row {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 1.5rem;
+    width: 100%;
+  }
+
+  .color-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: transform 0.2s ease;
+  }
+
+  .color-item:hover {
+    transform: translateY(-2px);
+  }
+
+  .color-swatch {
+    aspect-ratio: 1;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 0.025);
+    transition: transform 0.2s ease;
+  }
+
+  .color-name {
+    font-size: 0.875rem;
+    color: #4b5563;
+    text-align: center;
+    text-wrap: pretty;
+  }
+
+  .controls {
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .control-group {
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.025);
+    border: 1px solid #e5e7eb;
+    flex: 1;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .preview-swatch {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    background: var(--u-color-core);
+    border: 1px solid #e5e7eb;
+    cursor: pointer;
+    transition: transform 0.15s ease-in-out;
+  }
+
+  .preview-swatch:hover {
+    transform: scale(1.1);
+  }
+
+  .control-group h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #1f2937;
+    font-weight: 600;
+  }
+
+  .slider-group {
+    background: transparent;
+    margin-bottom: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  label {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.875rem;
+    color: #4b5563;
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    background: #f3f4f6;
+    border-radius: 4px;
+    outline: none;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--u-color-core);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+    border: 2px solid #ffffff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: var(--u-color-core);
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+  input[type="range"]::-webkit-slider-thumb:hover {
+    background: var(--u-color-core-01-700);
+    transform: scale(1.05);
+  }
+
+  input[type="range"]::-moz-range-thumb:hover {
+    background: var(--u-color-core-01-700);
+    transform: scale(1.05);
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #ffffff;
+    color: rgb(0, 0, 0);
+    padding: 12px 24px;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px -4px rgb(0 0 0 / 0.1);
+    transform: translateY(200%);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .toast.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .color-row-container {
+    display: flex;
+    align-items: start;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .color-row-container.theme {
+    display: flex;
+    align-items: start;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .add-button {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: none;
+    background: #f3f4f6;
+    color: #9ca3af;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .add-button:hover {
+    background: #e5e7eb;
+    color: #6b7280;
+  }
+
+  .add-button:active {
+    background: #d1d5db;
+    transform: scale(0.97);
+  }
+
+  .remove-button {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: none;
+    background: #f3f4f6;
+    color: #9ca3af;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .remove-button:hover {
+    background: #e5e7eb;
+    color: #6b7280;
+  }
+
+  .remove-button:active {
+    background: #d1d5db;
+    transform: scale(0.97);
+  }
+
+  @media (max-width: 640px) {
+    .palette-container {
+      padding: 1rem;
+      gap: 2rem;
+    }
+
+    .palette {
+      padding: 1.5rem;
+    }
+
+    .color-row {
+      gap: 0.75rem;
+    }
+
+    .color-name {
+      font-size: 0.75rem;
+    }
+
+    .add-button {
+      width: 32px;
+      height: 32px;
+      font-size: 1rem;
+      margin-top: 2px;
+    }
+
+    .remove-button {
+      width: 32px;
+      height: 32px;
+      font-size: 1rem;
+      margin-top: 2px;
+    }
+  }
+</style>
+
+<script define:vars={{ initialColorTypesTheme, colorTypes, colorSteps }}>
+  // Initialize the theme colors state
+  let colorTypesTheme = [...initialColorTypesTheme];
+
+  function updateColor() {
+    const lSlider = document.getElementById('l-slider');
+    const cSlider = document.getElementById('c-slider');
+    const hSlider = document.getElementById('h-slider');
+    
+    if (!(lSlider instanceof HTMLInputElement) || 
+        !(cSlider instanceof HTMLInputElement) || 
+        !(hSlider instanceof HTMLInputElement)) return;
+    
+    const lValue = document.getElementById('l-value');
+    const cValue = document.getElementById('c-value');
+    const hValue = document.getElementById('h-value');
+    
+    if (lValue && cValue && hValue) {
+      lValue.textContent = lSlider.value;
+      cValue.textContent = cSlider.value;
+      hValue.textContent = hSlider.value;
+      
+      document.documentElement.style.setProperty('--u-color-core', `oklch(${lSlider.value}% ${cSlider.value} ${hSlider.value})`);
+    }
+  }
+
+  ['l-slider', 'c-slider', 'h-slider'].forEach(id => {
+    const slider = document.getElementById(id);
+    if (slider instanceof HTMLInputElement) {
+      slider.addEventListener('input', updateColor);
+    }
+  });
+
+  updateColor();
+
+  const previewSwatch = document.querySelector('.preview-swatch');
+  const toast = document.getElementById('toast');
+  
+  if (previewSwatch instanceof HTMLDivElement) {
+    previewSwatch.addEventListener('click', async () => {
+      const lSlider = document.getElementById('l-slider');
+      const cSlider = document.getElementById('c-slider');
+      const hSlider = document.getElementById('h-slider');
+      
+      if (!(lSlider instanceof HTMLInputElement) || 
+          !(cSlider instanceof HTMLInputElement) || 
+          !(hSlider instanceof HTMLInputElement)) return;
+
+      const colorValue = `oklch(${lSlider.value}% ${cSlider.value} ${hSlider.value})`;
+      
+      try {
+        await navigator.clipboard.writeText(colorValue);
+        previewSwatch.style.transform = 'scale(0.9)';
+        setTimeout(() => previewSwatch.style.transform = '', 200);
+        
+        toast?.classList.add('show');
+        setTimeout(() => toast?.classList.remove('show'), 2000);
+      } catch (err) {
+        console.error('Failed to copy color value:', err);
+      }
+    });
+  }
+
+  // Add color type functionality
+  const themeColors = document.getElementById('theme-colors');
+  const addButtons = document.querySelectorAll('.add-button');
+  const addedTypes = new Set(colorTypesTheme); // Track added color types
+
+  addButtons.forEach(button => {
+    if (button instanceof HTMLButtonElement) {
+      button.addEventListener('click', () => {
+        const colorType = button.getAttribute('data-color-type');
+        if (!colorType || addedTypes.has(colorType)) return;
+
+        // Update colorTypesTheme array
+        colorTypesTheme.push(colorType);
+
+        // Create new color row container
+        const colorRowContainer = document.createElement('div');
+        colorRowContainer.className = 'color-row-container theme';
+        colorRowContainer.style.display = 'flex';
+        colorRowContainer.style.alignItems = 'start';
+        colorRowContainer.style.gap = '1rem';
+        colorRowContainer.style.width = '100%';
+
+        // Create remove button with exact same styles as add button
+        const removeButton = document.createElement('button');
+        removeButton.className = 'add-button'; // Use add-button class for consistent styling
+        removeButton.setAttribute('data-color-type', colorType);
+        removeButton.setAttribute('aria-label', `Remove color type ${colorType}`);
+        removeButton.textContent = '-';
+        removeButton.style.width = '36px';
+        removeButton.style.height = '36px';
+        removeButton.style.borderRadius = '8px';
+        removeButton.style.border = 'none';
+        removeButton.style.background = '#f3f4f6';
+        removeButton.style.color = '#9ca3af';
+        removeButton.style.fontSize = '1.25rem';
+        removeButton.style.display = 'flex';
+        removeButton.style.alignItems = 'center';
+        removeButton.style.justifyContent = 'center';
+        removeButton.style.cursor = 'pointer';
+        removeButton.style.transition = 'all 0.15s ease';
+        removeButton.style.flexShrink = '0';
+        removeButton.style.marginTop = '4px';
+
+        // Create color row
+        const colorRow = document.createElement('div');
+        colorRow.className = 'color-row';
+        colorRow.style.display = 'grid';
+        colorRow.style.gridTemplateColumns = 'repeat(9, 1fr)';
+        colorRow.style.gap = '1.5rem';
+        colorRow.style.width = '100%';
+        
+        // Add color swatches
+        colorSteps.forEach(step => {
+          const colorItem = document.createElement('div');
+          colorItem.className = 'color-item';
+          colorItem.style.display = 'flex';
+          colorItem.style.flexDirection = 'column';
+          colorItem.style.gap = '0.75rem';
+          
+          const swatch = document.createElement('div');
+          swatch.className = 'color-swatch';
+          swatch.style.aspectRatio = '1';
+          swatch.style.borderRadius = '12px';
+          swatch.style.boxShadow = '0 2px 4px rgb(0 0 0 / 0.05)';
+          swatch.style.background = `var(--u-color-core-${colorType}-${step})`;
+          
+          const name = document.createElement('span');
+          name.className = 'color-name';
+          name.style.fontSize = '0.875rem';
+          name.style.color = '#4b5563';
+          name.style.textAlign = 'center';
+          name.textContent = `--u-color-core-${colorType}-${step}`;
+          
+          colorItem.appendChild(swatch);
+          colorItem.appendChild(name);
+          colorRow.appendChild(colorItem);
+        });
+
+        // Add remove button functionality
+        removeButton.addEventListener('click', () => {
+          colorRowContainer.remove();
+          addedTypes.delete(colorType);
+          colorTypesTheme = colorTypesTheme.filter(type => type !== colorType);
+          
+          // Re-enable the add button for this color type
+          const addButton = document.querySelector(`.add-button[data-color-type="${colorType}"]`);
+          if (addButton) {
+            addButton.style.opacity = '';
+            addButton.style.cursor = '';
+          }
+        });
+
+        // Assemble the row container
+        colorRowContainer.appendChild(removeButton);
+        colorRowContainer.appendChild(colorRow);
+        themeColors?.appendChild(colorRowContainer);
+        addedTypes.add(colorType);
+
+        // Disable the add button
+        button.style.opacity = '0.5';
+        button.style.cursor = 'not-allowed';
+      });
+    }
+  });
+
+  // Add custom factors functionality
+  function updateCustomFactors() {
+    const tintSlider = document.getElementById('tint-slider');
+    const shadeSlider = document.getElementById('shade-slider');
+    const shiftSlider = document.getElementById('shift-slider');
+    
+    if (!(tintSlider instanceof HTMLInputElement) || 
+        !(shadeSlider instanceof HTMLInputElement) || 
+        !(shiftSlider instanceof HTMLInputElement))return;
+    
+    const tintValue = document.getElementById('tint-value');
+    const shadeValue = document.getElementById('shade-value');
+    const shiftValue = document.getElementById('shift-value');
+
+    if (tintValue && shadeValue && shiftValue) {
+      tintValue.textContent = tintSlider.value;
+      shadeValue.textContent = shadeSlider.value;
+      shiftValue.textContent = shiftSlider.value;
+      
+      document.documentElement.style.setProperty('--u-color-tint-scale', tintSlider.value);
+      document.documentElement.style.setProperty('--u-color-shade-scale', shadeSlider.value);
+      document.documentElement.style.setProperty('--u-color-chroma-shift', shiftSlider.value);
+    }
+  }
+
+  ['tint-slider', 'shade-slider', 'shift-slider'].forEach(id => {
+    const slider = document.getElementById(id);
+    if (slider instanceof HTMLInputElement) {
+      slider.addEventListener('input', updateCustomFactors);
+    }
+  });
+
+  updateCustomFactors();
+</script>

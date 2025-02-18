@@ -1,0 +1,518 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Import the Code component from astro/components
+import { Code } from 'astro:components';
+import { Icon } from 'astro-icon/components';
+
+const textLine = 'Lorem ipsum dolor sit amet';
+
+const textShort = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+
+const textLong = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+---
+
+<Layout>
+    <div class="page-container">
+        <div class="page-content">
+            <div class="page-body">
+                <div class="tabs">
+                    <div class="tab-title">
+                        <h6>Font Classes</h6>
+                    </div>
+                    <div class="tab-controls">
+                        <button class="tab-button active" data-tab="preview">
+                            <Icon name="general/eye" class="u-font-style-label-sm" />
+                            Preview
+                        </button>
+                        <button class="tab-button" data-tab="code">
+                            <Icon name="general/code" class="u-font-style-label-sm" />
+                            Code
+                        </button>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="preview">
+                        <div class="font-style-list">
+                            <input 
+                            type="text" 
+                            id="textInput" 
+                            placeholder="Preview custom text..."
+                            class="text-input"
+                        />
+                            <div class="font-style-item">
+                                <div class="font-style">   
+                                    <div class="font-style-preview">
+                                        <h1 class="u-font-style-display-lg">Display Large</h1>
+                                        <h1><div class="text-preview">{textShort}</div></h1>
+                                    </div>
+                                    <div class="tag">
+                                        <div class="u-font-style-label-sm">.u-font-style-display-lg</div>
+                                    </div>
+                                </div>
+                                <div class="font-style">
+                                    <div class="font-style-preview">
+                                        <h2 class="u-font-style-display-md">Display Medium</h2>
+                                        <h2><div class="text-preview">{textShort}</div></h2>
+                                    </div>
+                                    <div class="tag">
+                                        <div class="u-font-style-label-sm">.u-font-style-display-md</div>
+                                    </div>
+                                </div>
+                                <div class="font-style">
+                                    <div class="font-style-preview">
+                                        <h3 class="u-font-style-display-sm">Display Small</h3>
+                                        <h3><div class="text-preview">{textShort}</div></h3>
+                                    </div>
+                                    <div class="tag">
+                                        <div class="u-font-style-label-sm">.u-font-style-display-sm</div>
+                                    </div>
+                                </div>
+                                <div class="font-style">
+                                    <div class="font-style-preview">
+                                        <h4 class="u-font-style-heading-lg">Heading Large</h4>
+                                        <h4><div class="text-preview">{textShort}</div></h4>
+                                    </div>
+                                    <div class="tag">
+                                        <div class="u-font-style-label-sm">.u-font-style-heading-lg</div>
+                                    </div>
+                                </div>
+                                <div class="font-style">
+                                    <div class="font-style-preview">
+                                        <h5 class="u-font-style-heading-md">Heading Medium</h5>
+                                        <h5><div class="text-preview">{textShort}</div></h5>
+                                    </div>
+                                    <div class="tag">
+                                        <div class="u-font-style-label-sm">.u-font-style-heading-md</div>
+                                    </div>
+                                </div>
+                                <div class="font-style">
+                                    <div class="font-style-preview">
+                                        <h6 class="u-font-style-heading-sm">Heading Small</h6>
+                                        <h6><div class="text-preview">{textShort}</div></h6>
+                                    </div>
+                                    <div class="tag">
+                                        <div class="u-font-style-label-sm">.u-font-style-heading-sm</div>
+                                    </div>
+                                </div>
+                                <div class="font-style">
+                                    <div class="font-style-preview">
+                                        <p class="u-font-style-body-lg">Body Large</p>
+                                        <p class="text-preview u-font-style-body-lg">
+                                            {textLong}
+                                        </p>
+                                    </div>
+                                    <div class="tag">
+                                        <div class="u-font-style-label-sm">.u-font-style-body-lg</div>
+                                    </div>
+                                </div>
+                                <div class="font-style">
+                                    <div class="font-style-preview">
+                                        <p class="u-font-style-body-md">Body Medium</p>
+                                        <p class="text-preview u-font-style-body-md">
+                                            {textLong}
+                                        </p>
+                                    </div>
+                                    <div class="tag">
+                                        <div class="u-font-style-label-sm">.u-font-style-body-md</div>
+                                    </div>
+                                </div>
+                                <div class="font-style">
+                                    <div class="font-style-preview">
+                                        <p class="u-font-style-body-sm">Body Small</p>
+                                        <p class="text-preview u-font-style-body-sm">
+                                            {textLong}
+                                        </p>
+                                    </div>
+                                    <div class="tag">
+                                        <div class="u-font-style-label-sm">.u-font-style-body-sm</div>
+                                    </div>
+                                </div>
+                                <div class="font-style">
+                                    <div class="font-style-preview">
+                                        <div class="u-font-style-label-lg">Label Large</div>
+                                        <div class="text-preview u-font-style-label-lg">{textLine}</div>
+                                    </div>
+                                    <div class="tag">
+                                        <div class="u-font-style-label-sm">.u-font-style-label-lg</div>
+                                    </div>
+                                </div>
+                                <div class="font-style">
+                                    <div class="font-style-preview">
+                                        <div class="u-font-style-label-md">Label Medium</div>
+                                        <div class="text-preview u-font-style-label-md">{textLine}</div>
+                                    </div>
+                                    <div class="tag">
+                                        <div class="u-font-style-label-sm">.u-font-style-label-md</div>
+                                    </div>
+                                </div>
+                                <div class="font-style">
+                                    <div class="font-style-preview">
+                                        <div class="u-font-style-label-sm">Label Small</div>
+                                        <div class="text-preview u-font-style-label-sm">{textLine}</div>
+                                    </div>
+                                    <div class="tag">
+                                        <div class="u-font-style-label-sm">.u-font-style-label-sm</div>
+                                    </div>
+                                </div>
+                                <div class="font-style">
+                                    <div class="font-style-preview">
+                                        <div class="u-font-style-label-xs">Label XSmall</div>
+                                        <div class="text-preview u-font-style-label-xs">{textLine}</div>
+                                    </div>
+                                    <div class="tag">
+                                        <div class="u-font-style-label-sm">.u-font-style-label-xs</div>
+                                    </div>
+                                </div>
+                                <div class="font-style">
+                                    <div class="font-style-preview">
+                                        <div class="u-font-style-label-xxs">Label XXSmall</div>
+                                        <div class="u-font-style-label-xxs text-preview">{textLine}</div>
+                                    </div>
+                                    <div class="tag">
+                                        <div class="u-font-style-label-sm">.u-font-style-label-xxs</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="code">
+                        <div class="code-wrap">
+                            <Code code={`/* FONT STYLES */
+@font-face {
+    font-family: 'Rock';
+    src: url(/fonts/rock-sans-normal.otf);
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Rock';
+    src: url(/fonts/rock-sans-bold.otf);
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    font-family: 'Rock', Arial, Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+
+    /* Font Values */
+    --font-scale: 1.333;
+    --font-base: 16px;
+
+    /* Font Scale */
+    --fs-h1: calc(var(--font-base) * pow(var(--font-scale), 6));
+    --fs-h2: calc(var(--font-base) * pow(var(--font-scale), 5));
+    --fs-h3: calc(var(--font-base) * pow(var(--font-scale), 4));
+    --fs-h4: calc(var(--font-base) * pow(var(--font-scale), 3));
+    --fs-h5: calc(var(--font-base) * pow(var(--font-scale), 2));
+    --fs-h6: calc(var(--font-base) * var(--font-scale));
+    --fs-p: var(--font-base);
+
+    /* Font Weight Variables */
+    --font-weight-bold: 700;
+    --font-weight-normal: 400;
+
+    --font-weight-heading: var(--font-weight-bold);
+    --font-weight-body: var(--font-weight-normal);
+
+}
+
+p {
+    text-wrap: pretty;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+    }
+
+
+@media (max-width: 768px) {
+    :root {
+        --font-scale: 1.25;
+    }  
+}
+
+@media (max-width: 425px) {
+    :root {
+        --font-scale: 1.15;
+    }
+}
+
+h1, .fs-h1 {
+    font-size: var(--fs-h1);
+    font-weight: var(--font-weight-heading);
+    line-height: 1.2em;
+    letter-spacing: -.02em;
+}
+
+h2, .fs-h2 {
+    font-size: var(--fs-h2);
+    font-weight: var(--font-weight-heading);
+    line-height: 1.2em;
+    letter-spacing: -.02em;
+}
+
+h3, .fs-h3 {
+    font-size: var(--fs-h3);
+    font-weight: var(--font-weight-heading);
+    line-height: 1.2em;
+    letter-spacing: -.02em;
+}
+
+h4, .fs-h4 {
+    font-size: var(--fs-h4);
+    font-weight: var(--font-weight-heading);
+    line-height: 1.2em;
+    letter-spacing: -.02em;
+}
+
+h5, .fs-h5 {
+    font-size: var(--fs-h5);
+    font-weight: var(--font-weight-normal);
+    line-height: 1.2em;
+    letter-spacing: -.02em;
+}
+
+h6, .fs-h6 {
+    font-size: var(--fs-h6);
+    font-weight: var(--font-weight-heading);
+    line-height: 1.2em;
+    letter-spacing: -.01em;
+}
+
+.fs-p-lg {
+    font-size: calc(var(--font-base) * 1.125);
+    font-weight: var(--font-weight-body);
+}
+
+p, .fs-p-md {
+    font-size: var(--font-base);
+    font-weight: var(--font-weight-body);
+    letter-spacing: -.0004em;
+}
+
+.fs-p-sm {
+    font-size: calc(var(--font-base) * 0.875);
+    font-weight: var(--font-weight-body);
+}
+
+.fs-label-lg {
+    font-size: calc(var(--font-base) * 1.125);
+    font-weight: var(--font-weight-body);
+}
+
+.fs-label-md {
+    font-size: var(--font-base);
+    font-weight: var(--font-weight-body);
+}
+
+.fs-label-sm {
+    font-size: calc(var(--font-base) * 0.875);
+    font-weight: var(--font-weight-body);
+}
+
+.fs-label-xs {
+    font-size: calc(var(--font-base) * 0.75);
+    font-weight: var(--font-weight-body);
+}
+
+.fs-label-xxs {
+    font-size: calc(var(--font-base) * 0.5625);
+    text-transform: uppercase;
+    font-weight: var(--font-weight-body);
+}`} lang="css" theme="github-dark" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</Layout>
+
+<style>
+    .page-container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .page-body {
+        padding: var(--p-xl);
+        width: 100%;
+    }
+
+    .page-content {
+        width: 100%;
+        max-width: 1280px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .code-wrap {
+        width: 100%;
+        border-radius: var(--b-radius-xl);
+        border: 1px solid var(--c-border-secondary);
+        overflow: hidden;
+    }
+
+    /* Update the Code component styling */
+    .code-wrap :global(pre) {
+        padding: 2rem;
+        max-width: 100%;
+        overflow-x: auto;
+        background-color: var(--c-surface-primary) !important;
+    }
+
+    .code-wrap :global(code) {
+        white-space: pre-wrap;
+        word-break: break-word;
+    }
+
+    .tag {
+        background-color: var(--c-surface-primary);
+        padding: 1rem 1rem;
+        border-radius: var(--b-radius-lg);
+        border: 1px solid var(--c-border-secondary);
+        width: fit-content;
+    }
+
+    .font-style-list {
+        display: flex;
+        flex-direction: column;
+        color: var(--c-text-secondary);
+    }
+
+    .font-style-item {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .font-style {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        border-bottom: 1px dashed var(--c-border-secondary);
+        padding: var(--p-md) 0;
+    }
+
+    .font-style-preview {
+        display: flex;
+        flex-direction: column;
+        gap: 4rem;
+        padding: 2rem 0;
+    }
+
+    .tabs {
+        display: flex;
+        justify-content: end;
+        align-items: end;
+        margin-bottom: 2rem;
+        border-bottom: 1px solid var(--c-border-secondary);
+        gap: .25rem;
+    }
+
+    .tab-title {
+        display: flex;
+        flex: 1;
+        padding: 0 1rem .66rem 0;
+        color: var(--c-text-secondary);
+        border-bottom: 1px solid var(--c-border-secondary);
+    }
+
+    .tab-button {
+        height: fit-content;
+        padding: 0.6rem 1rem .5rem 1rem;
+        border: 1px solid var(--c-border-secondary);
+        border-radius: var(--b-radius-lg) var(--b-radius-lg) 0 0;
+        background: none;
+        cursor: pointer;
+        color: var(--c-text-secondary);
+        display: flex;
+        align-items: center;
+        gap: .66rem;
+    }
+
+    .tab-button.active {
+        background-color: var(--c-cyan-950);
+        color: var(--c-text-primary);
+        border-color: var(--c-cyan-900);
+    }
+
+    .tab-content {
+        width: 100%;
+    }
+
+    .tab-pane {
+        display: none;
+    }
+
+    .tab-pane.active {
+        display: block;
+    }
+
+    .tab-controls {
+        display: flex;
+        gap: .25rem;
+        align-items: center;
+    }
+
+    .text-input {
+        padding: 0.5rem 1rem;
+        border: 1px solid var(--c-border-secondary);
+        border-radius: var(--b-radius-lg);
+        background: var(--c-surface-primary);
+        color: var(--c-text-primary);
+        font-size: var(--font-base);
+        width: 300px;
+    }
+
+    .text-input:focus {
+        outline: none;
+        border-color: var(--c-cyan-900);
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const tabs = document.querySelectorAll('.tab-button');
+        const textInput = document.getElementById('textInput');
+        
+        // Handle tab switching
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab-button').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+                
+                tab.classList.add('active');
+                
+                const tabId = tab.getAttribute('data-tab') || '';
+                const tabPane = document.getElementById(tabId);
+                if (tabPane) {
+                    tabPane.classList.add('active');
+                }
+            });
+        });
+
+        // Handle text input changes
+        textInput?.addEventListener('input', (e) => {
+            const newText = (e.target as HTMLInputElement).value;
+            document.querySelectorAll('.text-preview')
+                .forEach(element => {
+                    if (element.textContent !== element.className) {
+                        element.textContent = newText;
+                    }
+                });
+        });
+    });
+</script>
