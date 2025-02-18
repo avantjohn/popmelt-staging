@@ -179,45 +179,51 @@ const textLong = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed d
                     <div class="tab-pane" id="code">
                         <div class="code-wrap">
                             <Code code={`/* FONT STYLES */
-@font-face {
-    font-family: 'Rock';
-    src: url(/fonts/rock-sans-normal.otf);
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-}
-@font-face {
-    font-family: 'Rock';
-    src: url(/fonts/rock-sans-bold.otf);
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-}
-
 :root {
-    font-family: 'Rock', Arial, Helvetica, sans-serif;
+    font-family: 'Inter Variable', Arial, Helvetica, sans-serif;
     -webkit-font-smoothing: antialiased;
 
-    /* Font Values */
-    --font-scale: 1.333;
-    --font-base: 16px;
+    --u-font-trim-top: .37em;
+    --u-font-trim-bottom: .36em;
 
     /* Font Scale */
-    --fs-h1: calc(var(--font-base) * pow(var(--font-scale), 6));
-    --fs-h2: calc(var(--font-base) * pow(var(--font-scale), 5));
-    --fs-h3: calc(var(--font-base) * pow(var(--font-scale), 4));
-    --fs-h4: calc(var(--font-base) * pow(var(--font-scale), 3));
-    --fs-h5: calc(var(--font-base) * pow(var(--font-scale), 2));
-    --fs-h6: calc(var(--font-base) * var(--font-scale));
-    --fs-p: var(--font-base);
+    --u-font-scale: 1.333;
+    --u-font-base: 16px;
+    
+    --u-font-size-6: calc(var(--u-font-base) * pow(var(--u-font-scale), 6));
+    --u-font-size-5: calc(var(--u-font-base) * pow(var(--u-font-scale), 5));
+    --u-font-size-4: calc(var(--u-font-base) * pow(var(--u-font-scale), 4));
+    --u-font-size-3: calc(var(--u-font-base) * pow(var(--u-font-scale), 3));
+    --u-font-size-2: calc(var(--u-font-base) * pow(var(--u-font-scale), 2));
+    --u-font-size-1: calc(var(--u-font-base) * var(--u-font-scale));
+    --u-font-size-0: var(--u-font-base);
 
     /* Font Weight Variables */
-    --font-weight-bold: 700;
-    --font-weight-normal: 400;
+    --u-font-weight-thin: 300;
+    --u-font-weight-normal: 450;
+    --u-font-weight-bold: 750;
+    
 
-    --font-weight-heading: var(--font-weight-bold);
-    --font-weight-body: var(--font-weight-normal);
+    /* Font Line Height Variables */
+    --u-font-line-height-tight: 1.25em;
+    --u-font-line-height-normal: 1.4em;
+    --u-font-line-height-loose: 1.5em;
 
+    /* Font Letter Spacing Variables */
+    --u-font-letter-spacing-tight: -0.0275em;
+    --u-font-letter-spacing-normal: -0.0004em;
+}
+
+
+:is([class*="u-font-style-"], h1, h2, h3, h4, h5, h6, p, blockquote)::before {
+	content: "";
+	display: table;
+	margin-bottom: calc(-0.5lh + var(--u-font-trim-top));
+}
+:is([class*="u-font-style-"], h1, h2, h3, h4, h5, h6, p, blockquote)::after {
+	content: "";
+	display: table;
+	margin-bottom: calc(-0.5lh + var(--u-font-trim-bottom));
 }
 
 p {
@@ -235,98 +241,108 @@ p, h1, h2, h3, h4, h5, h6 {
 
 @media (max-width: 768px) {
     :root {
-        --font-scale: 1.25;
+        --u-font-scale: 1.25;
     }  
 }
 
 @media (max-width: 425px) {
     :root {
-        --font-scale: 1.15;
+        --u-font-scale: 1.15;
     }
 }
 
-h1, .fs-h1 {
-    font-size: var(--fs-h1);
-    font-weight: var(--font-weight-heading);
-    line-height: 1.2em;
-    letter-spacing: -.02em;
+h1, .u-font-style-display-lg {
+    font-size: var(--u-font-size-6);
+    font-weight: var(--u-font-weight-bold);
+    line-height: var(--u-font-line-height-tight);
+    letter-spacing: var(--u-font-letter-spacing-tight);
 }
 
-h2, .fs-h2 {
-    font-size: var(--fs-h2);
-    font-weight: var(--font-weight-heading);
-    line-height: 1.2em;
-    letter-spacing: -.02em;
+h2, .u-font-style-display-md {
+    font-size: var(--u-font-size-5);
+    font-weight: var(--u-font-weight-bold);
+    line-height: var(--u-font-line-height-tight);
+    letter-spacing: var(--u-font-letter-spacing-tight);
 }
 
-h3, .fs-h3 {
-    font-size: var(--fs-h3);
-    font-weight: var(--font-weight-heading);
-    line-height: 1.2em;
-    letter-spacing: -.02em;
+h3, .u-font-style-display-sm {
+    font-size: var(--u-font-size-4);
+    font-weight: var(--u-font-weight-bold);
+    line-height: var(--u-font-line-height-tight);
+    letter-spacing: var(--u-font-letter-spacing-tight);
 }
 
-h4, .fs-h4 {
-    font-size: var(--fs-h4);
-    font-weight: var(--font-weight-heading);
-    line-height: 1.2em;
-    letter-spacing: -.02em;
+h4, .u-font-style-heading-lg {
+    font-size: var(--u-font-size-3);
+    font-weight: var(--u-font-weight-bold);
+    line-height: var(--u-font-line-height-normal);
+    letter-spacing: var(--u-font-letter-spacing-tight);
 }
 
-h5, .fs-h5 {
-    font-size: var(--fs-h5);
-    font-weight: var(--font-weight-normal);
-    line-height: 1.2em;
-    letter-spacing: -.02em;
+h5, .u-font-style-heading-md {
+    font-size: var(--u-font-size-2);
+    font-weight: var(--u-font-weight-bold);
+    line-height: var(--u-font-line-height-normal);
+    letter-spacing: var(--u-font-letter-spacing-tight);
 }
 
-h6, .fs-h6 {
-    font-size: var(--fs-h6);
-    font-weight: var(--font-weight-heading);
-    line-height: 1.2em;
-    letter-spacing: -.01em;
+h6, .u-font-style-heading-sm {
+    font-size: var(--u-font-size-1);
+    font-weight: var(--u-font-weight-bold);
+    line-height: var(--u-font-line-height-normal);
+    letter-spacing: var(--u-font-letter-spacing-tight);
 }
 
-.fs-p-lg {
-    font-size: calc(var(--font-base) * 1.125);
-    font-weight: var(--font-weight-body);
+.u-font-style-body-lg {
+    font-size: calc(var(--u-font-base) * 1.125);
+    font-weight: var(--u-font-weight-normal);
+    letter-spacing: var(--u-font-letter-spacing-normal);
+    line-height: var(--u-font-line-height-loose);
 }
 
-p, .fs-p-md {
-    font-size: var(--font-base);
-    font-weight: var(--font-weight-body);
-    letter-spacing: -.0004em;
+p, .u-font-style-body-md {
+    font-size: var(--u-font-size-0);
+    font-weight: var(--u-font-weight-normal);
+    letter-spacing: var(--u-font-letter-spacing-normal);
+    line-height: var(--u-font-line-height-loose);
 }
 
-.fs-p-sm {
-    font-size: calc(var(--font-base) * 0.875);
-    font-weight: var(--font-weight-body);
+.u-font-style-body-sm {
+    font-size: calc(var(--u-font-size-0) * 0.875);
+    font-weight: var(--u-font-weight-normal);
+    letter-spacing: var(--u-font-letter-spacing-normal);  
+    line-height: var(--u-font-line-height-loose);
 }
 
-.fs-label-lg {
-    font-size: calc(var(--font-base) * 1.125);
-    font-weight: var(--font-weight-body);
+.u-font-style-label-lg {
+    font-size: calc(var(--u-font-size-0) * 1.125);
+    font-weight: var(--u-font-weight-normal);
+    letter-spacing: var(--u-font-letter-spacing-normal);
 }
 
-.fs-label-md {
-    font-size: var(--font-base);
-    font-weight: var(--font-weight-body);
+.u-font-style-label-md {
+    font-size: var(--u-font-size-0);
+    font-weight: var(--u-font-weight-normal);
+    letter-spacing: var(--u-font-letter-spacing-normal);
 }
 
-.fs-label-sm {
-    font-size: calc(var(--font-base) * 0.875);
-    font-weight: var(--font-weight-body);
+.u-font-style-label-sm {
+    font-size: calc(var(--u-font-size-0) * 0.875);
+    font-weight: var(--u-font-weight-normal);
+    letter-spacing: var(--u-font-letter-spacing-normal);
 }
 
-.fs-label-xs {
-    font-size: calc(var(--font-base) * 0.75);
-    font-weight: var(--font-weight-body);
+.u-font-style-label-xs {
+    font-size: calc(var(--u-font-size-0) * 0.75);
+    font-weight: var(--u-font-weight-normal);
+    letter-spacing: var(--u-font-letter-spacing-normal);
 }
 
-.fs-label-xxs {
-    font-size: calc(var(--font-base) * 0.5625);
+.u-font-style-label-xxs {
+    font-size: calc(var(--u-font-size-0) * 0.5625);
     text-transform: uppercase;
-    font-weight: var(--font-weight-body);
+    font-weight: var(--u-font-weight-normal);
+    letter-spacing: var(--u-font-letter-spacing-normal);
 }`} lang="css" theme="github-dark" />
                         </div>
                     </div>
