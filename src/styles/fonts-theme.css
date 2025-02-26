@@ -1,11 +1,11 @@
 /* FONT STYLES */
 
 :root {
-    font-family: 'Inter Variable', Arial, Helvetica, sans-serif;
+    font-family: 'Manrope Variable', Arial, Helvetica, sans-serif;
     -webkit-font-smoothing: antialiased;
 
-    --u-font-trim-top: .37em;
-    --u-font-trim-bottom: .36em;
+    --u-font-trim-top: .355em;
+    --u-font-trim-bottom: .385em;
 
     /* Font Scale */
     --u-font-scale: 1.333;
