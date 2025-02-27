@@ -1,11 +1,11 @@
 /* FONT STYLES */
 
 :root {
-    font-family: 'Manrope Variable', Arial, Helvetica, sans-serif;
+    font-family: 'Azeret Mono Variable', Arial, Helvetica, sans-serif;
     -webkit-font-smoothing: antialiased;
 
-    --u-font-trim-top: .355em;
-    --u-font-trim-bottom: .385em;
+    --u-font-trim-top: .43em;
+    --u-font-trim-bottom: .36em;
 
     /* Font Scale */
     --u-font-scale: 1.333;

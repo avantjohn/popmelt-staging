@@ -2,6 +2,7 @@
 /* Import Fonts */
 import '@fontsource-variable/inter';
 import '@fontsource-variable/manrope';
+import '@fontsource-variable/azeret-mono';
 
 import '../styles/global.css';
 import '../styles/fonts-theme.css';
@@ -9,6 +10,9 @@ import '../styles/colors-global.css';
 import '../styles/colors-theme.css';
 import '../styles/spacing-theme.css';
 import '../styles/borders-theme.css';
+
+import Header from '../components/Header.astro';
+
 ---
 
 <!doctype html>
@@ -21,6 +25,7 @@ import '../styles/borders-theme.css';
 		<title>Astro Basics</title>
 	</head>
 	<body>
+		<Header />
 		<slot />
 	</body>
 </html>

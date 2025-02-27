@@ -2,6 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import { Icon } from 'astro-icon/components';
 import Spline from '../components/Spline.astro';
+import LottieScroll from '../components/LottieScroll.astro';
+import LottieBasic from '../components/LottieBasic.astro';
 ---
 
 <script>
@@ -59,14 +61,14 @@ import Spline from '../components/Spline.astro';
 		<div class="hero-content">
 			<div class="hero-text">
 				<div class="hero-title">
-					<h1>Hello World</h1>
+					<h1>build together</h1>
 				</div>
 				<div class="hero-description">
-					<p>This is a test</p>
+					<p>We are a collective of designers, developers, and agents leveraging a.i. to create innovative digital experiences.</p>
 				</div>
 				<div class="hero-button">
 					<a href="/navi">
-						<div class="hero-button-text">Learn More</div>
+						<div class="hero-button-text">latest experiments</div>
 						<div class="hero-button-icon">
 							<svg width="100%" height="100%" viewBox="0 0 100 100">
 								<circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" stroke-width="3"/>
@@ -78,6 +80,12 @@ import Spline from '../components/Spline.astro';
 			</div>
 		</div>
 	</section>
+	<div class="lottie-scroll-container">
+		<LottieScroll />
+	</div>
+	<div class="lottie-scroll-container">
+		<LottieBasic />
+	</div>
 </Layout>
 
 <style>
@@ -100,12 +108,23 @@ import Spline from '../components/Spline.astro';
 		z-index: 1;
 	}
 
+	.spline-container::after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 64px;
+		background-color: #151515;
+	}
+
 	.hero-content {
-		padding: 2rem;
+		padding: 3rem;
 		position: relative;
 		z-index: 2;
 		width: 100%;
 		height: 100%;
+		display: flex;
 	}
 
 	.hero-text {
@@ -115,16 +134,24 @@ import Spline from '../components/Spline.astro';
 		flex-direction: column;
 		align-items: flex-start;
 		justify-content: flex-end;
-		gap: 2rem;
+		gap: 2.5rem;
 	}
 
 	.hero-title {
-		font-size: 4rem;
-		font-weight: 700;
-		line-height: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.hero-title h1 {
+		font-size: 5.5rem;
+		width: 12ch;
+		font-weight: 70;
+		line-height: 1.05em;
 	}
 
 	.hero-description {
+		width: 35%;
 		font-size: 1.5rem;
 		line-height: 0;
 		margin-top: 1rem;
@@ -137,13 +164,13 @@ import Spline from '../components/Spline.astro';
 		align-items: center;
 		gap: 0.5rem;
 		background-color: #fff;
-		padding: 0.5rem 1rem;
-		border-radius: 0.25rem;
+		padding: 0.5rem .75rem 0.5rem 1rem;
+		border-radius: 3px;
 	}
 
 	.hero-button-text {
 		font-size: 1rem;
-		font-weight: 700;
+		font-weight: 500;
 	}
 
 	.hero-button-icon {
@@ -172,5 +199,9 @@ import Spline from '../components/Spline.astro';
 	.hero-button-icon svg circle {
 		transform-origin: center;
 		transform: rotate(-90deg);
+	}
+
+	.lottie-scroll-container {
+		background-color: rgb(21, 21, 21);
 	}
 </style>
